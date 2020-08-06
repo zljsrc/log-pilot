@@ -6,7 +6,7 @@
 
   <parse>
   {{if .Stdout}}
-  @type json
+  @type nonex
   {{else}}
   @type {{ .Format }}
   {{end}}
@@ -22,15 +22,17 @@
   keep_time_key true
   </parse>
 
-  read_from_head true
+  read_from_head false
   pos_file /pilot/pos/{{ $.containerId }}.{{ .Name }}.pos
+  from_encoding UTF-8
+  encoding UTF-8
 </source>
 
 <filter docker.{{ $.containerId }}.{{ .Name }}>
   @type record_transformer
   enable_ruby true
   <record>
-    host "#{Socket.gethostname}"
+    host "#{(Socket.ip_address_list.detect do |intf| intf.ipv4_private? end).ip_address}"
     {{range $key, $value := .Tags}}
     {{ $key }} {{ $value }}
     {{end}}

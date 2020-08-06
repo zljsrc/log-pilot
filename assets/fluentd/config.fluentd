@@ -216,6 +216,11 @@ cat >> $FLUENTD_CONFIG << EOF
 EOF
 }
 
+configmap(){
+echo "please bind configmap dir to /etc/fluentd/configmap"
+echo "@include configmap/*.conf" >> $FLUENTD_CONFIG
+}
+
 flowcounter() {
 cat >> $FLUENTD_CONFIG << EOF
 <match docker.**>
@@ -251,6 +256,8 @@ case "$LOGGING_OUTPUT" in
         null;;
     flowcounter)
         flowcounter;;
+    readconfigmap)
+        configmap;;
     *)
         default
 esac

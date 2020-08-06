@@ -11,15 +11,15 @@ RUN go install
 FROM alpine:3.6
 COPY assets/glibc/glibc-2.26-r0.apk /tmp/
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
-    apk update && \ 
+    apk update && \
     apk add python && \
     apk add ruby-json ruby-irb && \
     apk add build-base ruby-dev && \
     apk add python && \
     apk add lsof && \
     apk add ca-certificates wget && \
-    gem install fluentd -v 1.2.6 --no-ri --no-rdoc && \
-    gem install fluent-plugin-splunk-hec -v "=1.2.2" && \
+    gem install fluentd -v 1.6.2 --no-ri --no-rdoc && \
+    gem install fluent-plugin-splunk-hec -v 1.2.2 --no-ri --no-rdoc && \
     gem install fluent-plugin-elasticsearch -v ">=2.0.0" --no-ri --no-rdoc && \
     gem install gelf -v "~> 3.0.0" --no-ri --no-rdoc && \
     gem install aliyun_sls_sdk -v ">=0.0.9" --no-ri --no-rdoc && \

@@ -43,6 +43,8 @@
     _target {{if .Target}}{{.Target}}{{else}}{{ .Name }}{{end}}
     {{end}}
 
+    non_blank_log "${record['message']=='' ? '_blank' : record['message']}"
+
     {{range $key, $value := $.container}}
     {{ $key }} {{ $value }}
     {{end}}
